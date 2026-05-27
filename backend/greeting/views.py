@@ -1,10 +1,47 @@
 import os
+import sys
+from io import BytesIO
+from PIL import Image
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import GalleryImage
 
 ADMIN_PASSWORD = "3496"  # Simple pin/password to protect edits
+
+
+def compress_image(uploaded_file):
+    # Open the image using Pillow
+    img = Image.open(uploaded_file)
+    
+    # Convert to RGB mode if it is RGBA or palette based (WebP/PNG support)
+    if img.mode in ("RGBA", "P"):
+        img = img.convert("RGB")
+        
+    # Resize if large (e.g. max width 1000px)
+    max_size = 1000
+    width, height = img.size
+    if width > max_size:
+        ratio = max_size / float(width)
+        new_size = (max_size, int(float(height) * ratio))
+        img = img.resize(new_size, Image.Resampling.LANCZOS)
+        
+    # Save the compressed image to a BytesIO buffer
+    output_io = BytesIO()
+    img.save(output_io, format="JPEG", quality=75, optimize=True, progressive=True)
+    output_io.seek(0)
+    
+    # Create a Django InMemoryUploadedFile
+    compressed_file = InMemoryUploadedFile(
+        output_io,
+        'ImageField',
+        f"{os.path.splitext(uploaded_file.name)[0]}.jpg",
+        'image/jpeg',
+        sys.getsizeof(output_io),
+        None
+    )
+    return compressed_file
 
 
 def check_auth(request):
@@ -39,6 +76,13 @@ def image_list(request):
                 {"error": "No image file provided"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+        # Compress and optimize the uploaded image before saving
+        try:
+            file_obj = compress_image(file_obj)
+        except Exception as e:
+            # Fallback to original image if compression fails
+            pass
 
         img = GalleryImage.objects.create(image=file_obj)
         img_url = img.image.url
