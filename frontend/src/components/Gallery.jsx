@@ -19,7 +19,13 @@ export default function Gallery() {
       const response = await fetch(`${API}api/images/`);
       if (response.ok) {
         const data = await response.json();
-        setImages(data);
+        setImages((prev) => {
+          // Only update state if the data actually changed to prevent re-renders and lag
+          if (JSON.stringify(prev) !== JSON.stringify(data)) {
+            return data;
+          }
+          return prev;
+        });
       }
     } catch (err) {
       console.error("Failed to fetch gallery images:", err);
@@ -281,9 +287,8 @@ export default function Gallery() {
         /* Image Grid */
         <motion.div 
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full"
-          layout
         >
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence>
             {images.map((img) => (
               <motion.div
                 key={img.id}
@@ -306,6 +311,7 @@ export default function Gallery() {
                     alt="Shared Eid memory"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
 
