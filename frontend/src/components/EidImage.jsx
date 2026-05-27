@@ -9,25 +9,20 @@ export default function EidImage() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
     >
-      {/* Outer red glow ring */}
-      <motion.div
+      {/* Outer red glow ring (static for performance) */}
+      <div
         className="absolute rounded-2xl pointer-events-none"
         style={{
           inset: -20,
           background:
-            "radial-gradient(ellipse, rgba(192,57,43,0.2) 0%, transparent 70%)",
+            "radial-gradient(ellipse, rgba(192,57,43,0.18) 0%, transparent 70%)",
           filter: "blur(18px)",
+          opacity: 0.7,
         }}
-        animate={{ opacity: [0.4, 1, 0.4] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Floating image */}
-      <motion.div
-        animate={{ y: [0, -12, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="relative"
-      >
+      {/* Main card wrapper (static for performance) */}
+      <div className="relative">
         {/* Bold red → cream → green vintage border */}
         <div
           className="p-[4px] rounded-2xl"
@@ -82,7 +77,7 @@ export default function EidImage() {
             </svg>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
