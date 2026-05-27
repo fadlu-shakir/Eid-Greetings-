@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div
       className="relative w-full flex flex-col"
-      style={{ minHeight: "100svh" }}
+      style={{ minHeight: "100vh" }}
     >
       {/* Animated background layer — fixed so it never shifts content */}
       <Background />
