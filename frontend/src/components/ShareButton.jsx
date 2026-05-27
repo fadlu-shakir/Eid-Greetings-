@@ -21,8 +21,9 @@ export default function ShareButton() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.85, duration: 0.45, ease: "easeOut" }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ delay: 0.1, duration: 0.45, ease: "easeOut" }}
       className="flex flex-col items-center gap-4"
       style={{ marginTop: "24px" }}
     >

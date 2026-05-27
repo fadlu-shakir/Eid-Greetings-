@@ -6,7 +6,8 @@ export default function EidImage() {
     <motion.div
       className="relative flex items-center justify-center"
       initial={{ opacity: 0, scale: 0.85, y: 40 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
     >
       {/* Outer red glow ring (static for performance) */}

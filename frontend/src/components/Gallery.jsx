@@ -96,7 +96,13 @@ export default function Gallery() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 mt-16 mb-12 flex flex-col items-center">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="w-full max-w-5xl mx-auto px-4 mt-16 mb-12 flex flex-col items-center"
+    >
       
       {/* Discrete Floating Admin Lock Button (Top-Right of screen) */}
       <div className="fixed top-5 right-5 z-40 flex flex-col items-end">
@@ -359,6 +365,6 @@ export default function Gallery() {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -25,7 +25,8 @@ function AnimatedHeading({ text, className, style }) {
       style={style}
       variants={container}
       initial="hidden"
-      animate="show"
+      whileInView="show"
+      viewport={{ once: true, margin: "-40px" }}
       aria-label={text}
     >
       {words.map((word, i) => (
@@ -85,7 +86,8 @@ function WishMessage() {
     <motion.p
       variants={lineContainer}
       initial="hidden"
-      animate="show"
+      whileInView="show"
+      viewport={{ once: true, margin: "-40px" }}
       className="text-center leading-relaxed"
       style={{
         fontFamily: "var(--font-body)",
