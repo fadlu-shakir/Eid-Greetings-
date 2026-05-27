@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const API = "https://eid-backend-6514.onrender.com/";
+
 export default function Gallery() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ export default function Gallery() {
   // Fetch images from Django API on mount
   const fetchImages = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/images/");
+      const response = await fetch(`${API}api/images/`);
       if (response.ok) {
         const data = await response.json();
         setImages(data);
@@ -56,7 +58,7 @@ export default function Gallery() {
     formData.append("image", file);
 
     try {
-      const response = await fetch("http://localhost:8000/api/images/", {
+      const response = await fetch(`${API}api/images/`, {
         method: "POST",
         body: formData,
       });
@@ -79,7 +81,7 @@ export default function Gallery() {
     if (!window.confirm("Are you sure you want to delete this memory?")) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/images/${id}/?password=3496`, {
+      const response = await fetch(`${API}api/images/${id}/?password=3496`, {
         method: "DELETE",
       });
 
