@@ -6,11 +6,9 @@ export default function ScrollIndicator() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Hide the scroll indicator once the user scrolls down slightly
+      // Hide the scroll indicator permanently once the user scrolls down slightly
       if (window.scrollY > 40) {
         setVisible(false);
-      } else {
-        setVisible(true);
       }
     };
 
