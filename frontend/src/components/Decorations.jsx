@@ -44,7 +44,7 @@ function LanternSVG({ scale = 1, color = "#c0392b" }) {
 function CrescentDecor() {
   return (
     <motion.div
-      className="absolute top-4 right-6 pointer-events-none"
+      className="absolute top-4 left-4 md:left-auto md:right-16 pointer-events-none"
       initial={{ opacity: 0, scale: 0.7 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
@@ -59,7 +59,7 @@ function CrescentDecor() {
         }}
         transition={{ duration: 3, repeat: Infinity }}
       >
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+        <svg width="50" height="50" viewBox="0 0 60 60" fill="none">
           <path
             d="M45 30 C45 42 35 52 23 52 C16 52 10 48 7 42 C12 44 18 44 24 42 C34 38 40 29 38 18 C36 12 32 8 27 6 C36 8 45 18 45 30Z"
             fill="#f5f0d8"
@@ -72,10 +72,10 @@ function CrescentDecor() {
 }
 
 const LANTERNS = [
-  { x: "7%",  delay: 0.1, scale: 0.9,  color: "#c0392b", swayDuration: 3.5 },
-  { x: "20%", delay: 0.18, scale: 1.1,  color: "#a93226", swayDuration: 2.8 },
-  { x: "72%", delay: 0.14, scale: 1.0,  color: "#c0392b", swayDuration: 3.2 },
-  { x: "86%", delay: 0.22, scale: 0.85, color: "#922b21", swayDuration: 2.5 },
+  { positionClass: "left-[2%] md:left-[7%]", delay: 0.1, scale: 0.7, color: "#c0392b", swayDuration: 3.5, mobileShow: true },
+  { positionClass: "left-[20%]", delay: 0.18, scale: 1.1, color: "#a93226", swayDuration: 2.8, mobileShow: false },
+  { positionClass: "left-[72%] md:right-[20%] md:left-auto", delay: 0.14, scale: 1.0, color: "#c0392b", swayDuration: 3.2, mobileShow: false },
+  { positionClass: "right-[2%] md:right-[7%]", delay: 0.22, scale: 0.7, color: "#922b21", swayDuration: 2.5, mobileShow: true },
 ];
 
 export default function Decorations() {
@@ -86,8 +86,7 @@ export default function Decorations() {
       {LANTERNS.map((l, i) => (
         <motion.div
           key={i}
-          className="absolute top-0 pointer-events-none"
-          style={{ left: l.x }}
+          className={`absolute top-0 pointer-events-none ${l.positionClass} ${l.mobileShow ? "block" : "hidden md:block"}`}
           initial={{ opacity: 0, y: -80 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: l.delay, duration: 0.6, ease: "easeOut" }}

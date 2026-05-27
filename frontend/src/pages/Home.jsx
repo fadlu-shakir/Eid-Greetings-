@@ -26,7 +26,7 @@ export default function Home() {
       {/* Main content — grows to fill viewport, centers children */}
       <main
         className="relative z-10 flex-1 flex flex-col items-center justify-center w-full px-4"
-        style={{ gap: "clamp(16px, 3vh, 28px)", paddingTop: "90px", paddingBottom: "16px" }}
+        style={{ gap: "clamp(16px, 3vh, 28px)", paddingTop: "clamp(48px, 6vh, 90px)", paddingBottom: "16px" }}
       >
         {/* Eid themed image */}
         <EidImage />
