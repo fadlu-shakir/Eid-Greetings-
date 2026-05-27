@@ -341,7 +341,7 @@ export default function Gallery() {
             <span className="text-sm font-medium text-[#f5f0d8]">
               {uploading ? "Uploading..." : "Upload Photo"}
             </span>
-            <span className="text-xs text-[#f5f0d8]/50 mt-1">JPEG, PNG up to 10MB</span>
+            <span className="text-xs text-[#f5f0d8]/50 mt-1">JPEG, PNG, WEBP (No size limit)</span>
             <input
               type="file"
               accept="image/*"
