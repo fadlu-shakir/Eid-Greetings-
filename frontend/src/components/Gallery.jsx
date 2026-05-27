@@ -30,6 +30,11 @@ export default function Gallery() {
 
   useEffect(() => {
     fetchImages();
+
+    // Poll the backend every 6 seconds to display new uploads automatically
+    const pollInterval = setInterval(fetchImages, 6000);
+
+    return () => clearInterval(pollInterval);
   }, []);
 
   // Handle password submission to unlock admin controls (deletion)
